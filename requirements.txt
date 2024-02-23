@@ -1,2 +1,3 @@
 PyTelegramBotAPI
 python-dotenv
+gdz
