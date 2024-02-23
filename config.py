@@ -1,4 +1,4 @@
-algebras_dict: dict = {
+ALGEBRA: dict[str, dict[str, str]] = {
     "1": {
         "about": "Алгебра 8 класс Макарычев",
         "autor": "",
@@ -56,4 +56,8 @@ algebras_dict: dict = {
         "allowed type": True,
     },
 }
-# 12
+
+HEADERS: dict = {
+    "Accept": "*/*",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.5993.2470 Safari/537.36",
+}

@@ -1,6 +1,6 @@
 from gdz import GDZ
 
-algebra_dict: dict = {
+ALGEBRA: dict = {
     "1": {"about": "", "autor": "", "year of manufacture": 201, "url": ""},
     "2": {"about": "", "autor": "", "year of manufacture": 200, "url": ""},
     "3": {"about": "", "autor": "", "year of manufacture": 200, "url": ""},
@@ -14,18 +14,15 @@ algebra_dict: dict = {
     "11": {"about": "", "autor": "", "year of manufacture": 200, "url": ""},
     "12": {"about": "", "autor": "", "year of manufacture": 200, "url": ""},
 }
-gdz = GDZ()
-i = 1
 
-for book in gdz.books:
+for i, book in enumerate(GDZ().books):
+    if i > 12:
+        break
     if ("Алгебра" in book.title) and ("8" in book.title):
-
-        algebra_dict[f"{i}"]["about"] = book.title
-        algebra_dict[f"{i}"]["url"] = f"https://gdz.ru{book.url}"
-        i += 1
-        if i > 12:
-            break
+        ALGEBRA[str(i)]["about"] = book.title
+        ALGEBRA[str(i)]["url"] = f"https://gdz.ru{book.url}"
+        
 
 
 with open(file="list_obj.txt", mode="w") as file:
-    file.write(f"{algebra_dict}")
+    file.write(f"{ALGEBRA}")
