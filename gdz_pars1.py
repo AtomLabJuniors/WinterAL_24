@@ -3,7 +3,6 @@ from bs4 import BeautifulSoup
 from config import HEADERS, ALGEBRA
 
 
-
 def install_jpg(url: str) -> str:
     response = requests.get(url)
     name = (url.split("/"))[-1]
@@ -12,9 +11,10 @@ def install_jpg(url: str) -> str:
     return name
 
 
-def main(us_exers: int, obj_url: str = "https://gdz.ru/class-8/algebra/makarychev-8/"):
-    # https://gdz.ru/class-8/algebra/makarychev-8/6-nom/, https://gdz.ru/class-8/algebra/makarychev-8/6-nom/
-    # print(f"conkrekt_url = {conkrekt_url}")
+def main(
+    us_exers: int, obj_url: str = "https://gdz.ru/class-8/algebra/makarychev-8/"
+) -> list:
+    """вернет список url ответов по какой-то номер епражнение"""
     req = requests.get(f"{obj_url}{us_exers}-nom/", headers=HEADERS)
     soup = BeautifulSoup(req.text, "lxml")
 
