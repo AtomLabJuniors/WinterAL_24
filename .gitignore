@@ -1,2 +1,4 @@
 .env
 __pycache__/*
+.gitignore
+main telegram_bot_tests/*
