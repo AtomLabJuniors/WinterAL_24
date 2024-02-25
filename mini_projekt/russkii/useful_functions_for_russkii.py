@@ -1,5 +1,5 @@
 # import chec_url_geometria_on_existence
-from WinterAL_24.mini_projekt.russkii.list_obj_russkii import GEOMETRIA
+from list_obj_russkii import *
 import urllib, bs4
 
 BeautifulSoup = bs4.BeautifulSoup
@@ -8,7 +8,7 @@ gdz_web = "https://gdz.ru"
 
 def dowload_gdz(url_book: str, exer: int = 77) -> list:
     try:
-        url_on_task = get_exer_url(url_book)
+        url_on_task = get_exer_url(url_book, exer)
         with urllib.request.urlopen(url_on_task) as response:
             req = response.read().decode("utf-8")
         soup = BeautifulSoup(str(req), "lxml")
@@ -46,11 +46,11 @@ def get_exer_url(url_book: str, exer: int = 77) -> str:
 
 
 if __name__ == "__main__":
-    for i in range(1, 7):
-        if GEOMETRIA[str(i)]["url"] != "":
-            print(f'{i}) { GEOMETRIA[str(i)]["about"]}')
+    for i in range(1, 10):
+        if RUSSKII[str(i)]["url"] != "":
+            print(f'{i}) { RUSSKII[str(i)]["about"]}')
 
     book = str(int(input("enter the appropriate textbook: ")))
     exer = int(input("enter the numbeer of exercise: "))
-    ans = dowload_gdz(GEOMETRIA[book]["url"], exer)
+    ans = dowload_gdz(RUSSKII[book]["url"], exer)
     print(ans)

@@ -5,6 +5,7 @@ from customization import (
     maximum_number_books,
     name_textbook,
     klass,
+    dictionary_that_stores_links_to_textbooks,
 )
 
 BOOKS = {}
@@ -36,7 +37,9 @@ for book in GDZ().books:
 # This portion should be extracted to a separate function if needed for reuse
 def write_books_to_file(file_name, data):
     with open(file=file_name, mode="w") as file:
-        file.write(f"{data}")
+        file.write(
+            f"{dictionary_that_stores_links_to_textbooks}: dict[str, dict[str, str]] = {data}"
+        )
 
 
 write_books_to_file(name_file_in_which_textbooks_will_be_recorded, BOOKS)
