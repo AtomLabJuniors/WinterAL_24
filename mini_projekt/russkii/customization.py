@@ -8,6 +8,8 @@ structure_class_for_finding_all_exer = {
 # переменные для записи учебников в файл
 maximum_number_books = 10  # Напишите Сколько максимум учебников вы бы хотели найти и записывать их в файл. по возможности не менять
 name_file_in_which_textbooks_will_be_recorded = "list_obj_russkii.py"  # Напишите название файлa в котором будут сохраняться найденные учебники
+dictionary_that_stores_links_to_textbooks = "RUSSKII"
+
 
 # другие переменные
 gdz_web = "https://gdz.ru"  # Название главного сайта
