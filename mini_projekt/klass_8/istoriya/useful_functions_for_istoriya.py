@@ -1,5 +1,8 @@
-from list_obj_geometria import GEOMETRIA
-import urllib, bs4
+import sys
+
+sys.path.append("d:\\\\gdz_bot\\\\WinterAL_24\\\\mini_projekt")
+from klass_8.istoriya.list_obj_istoriya import ISTORIYA
+import urllib.request, bs4
 
 BeautifulSoup = bs4.BeautifulSoup
 gdz_web = "https://gdz.ru"
@@ -25,15 +28,13 @@ def download_gdz(url_book: str, exer: int = 77) -> list:
 
 
 def get_exer_url(url_book: str, exer: int = 77) -> str:
-    exer -= 1
     exer_url = ""
     try:
         with urllib.request.urlopen(url_book) as response:
             html = response.read().decode("utf-8")
         soup = BeautifulSoup(html, "lxml")
-
-        all_exer_list = soup.find_all("a", class_="task__button js-task-button")
-        exer_url = f'{gdz_web}{all_exer_list[exer]["href"]}'
+        exer_url = f'{gdz_web}{soup.find(
+        "a", {"class": "task__button js-task-button", "title":f"{exer}"}).get("href")}'
 
         return exer_url
     except Exception:
@@ -41,11 +42,12 @@ def get_exer_url(url_book: str, exer: int = 77) -> str:
 
 
 if __name__ == "__main__":
-    for i in range(1, 7):
-        if GEOMETRIA[str(i)]["url"]:
-            print(f'{i}) {GEOMETRIA[str(i)]["about"]}')
+    quantity_urls = list(ISTORIYA.keys())
+    for i in quantity_urls:
+        if ISTORIYA[str(i)]["url"]:
+            print(f'{i}) {ISTORIYA[str(i)]["about"]}')
 
     book = str(int(input("Enter the appropriate textbook: ")))
     exer = int(input("Enter the number of exercise: "))
-    ans = download_gdz(GEOMETRIA[book]["url"], exer)
+    ans = download_gdz(ISTORIYA[book]["url"], exer)
     print(ans)

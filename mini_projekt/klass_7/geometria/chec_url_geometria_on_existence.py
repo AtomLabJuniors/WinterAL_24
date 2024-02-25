@@ -2,7 +2,7 @@ import urllib.request
 from bs4 import BeautifulSoup
 from customization import structure_class_for_finding_all_exer, gdz_web
 
-# russkii
+
 def check_url_on_existence(url: str) -> bool:
     try:
         with urllib.request.urlopen(url) as response:
@@ -26,12 +26,8 @@ def get_url_if_url_is_true(url):
             html = response.read().decode("utf-8")
 
         soup = BeautifulSoup(html, "lxml")
-        all_exer_list = soup.find_all("a", structure_class_for_finding_all_exer)
-
-        if all_exer_list[77].get("title") != "78":
-            return ""
-
-        exer_url = f'{gdz_web}{all_exer_list[78 - 1]["href"]}'
+        exer_url = f'{gdz_web}{soup.find(
+        "a", {"class": "task__button js-task-button", "title":f"{78}"}).get("href")}'
 
         if check_url_on_existence(url=exer_url):
             return url

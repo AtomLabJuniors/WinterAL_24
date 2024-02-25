@@ -1,0 +1,1 @@
+INFORMATIKA: dict[str, dict[str, str]] = {'1': {'about': 'Информатика 7 класс рабочая тетрадь Босова ФГОС', 'url': 'https://gdz.ru/po-informatike/7-klass/rabochaya-tetrad-bosova'}}

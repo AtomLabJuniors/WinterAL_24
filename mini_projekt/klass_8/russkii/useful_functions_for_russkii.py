@@ -1,12 +1,14 @@
-# import chec_url_geometria_on_existence
-from list_obj_russkii import *
-import urllib, bs4
+import sys
+
+sys.path.append("d:\\\\gdz_bot\\\\WinterAL_24\\\\mini_projekt")
+from klass_8.russkii.list_obj_russkii import *
+import urllib.request, bs4
 
 BeautifulSoup = bs4.BeautifulSoup
 gdz_web = "https://gdz.ru"
 
 
-def dowload_gdz(url_book: str, exer: int = 77) -> list:
+def download_gdz(url_book: str, exer: int = 77) -> list:
     try:
         url_on_task = get_exer_url(url_book, exer)
         with urllib.request.urlopen(url_on_task) as response:
@@ -15,6 +17,7 @@ def dowload_gdz(url_book: str, exer: int = 77) -> list:
 
         ls_url_img = []
         div_tasks = soup.find_all("div", {"class": "task-img-container"})
+        # print(div_tasks)
         for div_task in div_tasks:
             img_s = div_task.find_all("img")
             for i in img_s:
@@ -28,29 +31,26 @@ def dowload_gdz(url_book: str, exer: int = 77) -> list:
 
 def get_exer_url(url_book: str, exer: int = 77) -> str:
     """проверяет: cуществует ли такой url и можно ли с него парсить ответы"""
-    exer -= 1
     exer_url = ""
     try:
         with urllib.request.urlopen(url_book) as response:
             html = response.read().decode("utf-8")
         soup = BeautifulSoup(str(html), "lxml")
-
-        all_exer_list: list[bs4.element.Tag] = soup.find_all(
-            "a", {"class": "task__button js-task-button"}
-        )
-        # print(f'title = {t[78].get("title")}\n url = {gdz_web}{t[78].get("href")}')
-        exer_url = f'{gdz_web}{all_exer_list[exer].get("href")}'
+        exer_url = f'{gdz_web}{soup.find(
+        "a", {"class": "task__button js-task-button", "title":f"{exer}"}).get("href")}'
         return exer_url
+
     except Exception:
         return ""
 
 
 if __name__ == "__main__":
-    for i in range(1, 10):
+    quantity_urls = list(RUSSKII.keys())
+    for i in quantity_urls:
         if RUSSKII[str(i)]["url"] != "":
             print(f'{i}) { RUSSKII[str(i)]["about"]}')
 
     book = str(int(input("enter the appropriate textbook: ")))
     exer = int(input("enter the numbeer of exercise: "))
-    ans = dowload_gdz(RUSSKII[book]["url"], exer)
+    ans = download_gdz(RUSSKII[book]["url"], exer)
     print(ans)
